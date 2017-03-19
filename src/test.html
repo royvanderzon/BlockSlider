@@ -2,33 +2,58 @@
 <html>
 <head>
     <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width">
     <style>
         *,
         *::after,
         *::before {
             box-sizing: border-box;
         }
-
         html {
             font-family: arial;
         }
-
         body {
             margin: 0;
         }
-        
         a {
             color: #45d296;
         }
-
         .site-wrap {
             max-width: 1000px;
             margin: 0 auto;
             padding: 1em 0.5em;
         }
-
         .block-slider {
             line-height: 100px;
+            position: relative;
+        }
+        .block-navigator{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            font-weight: bold;
+            font-size: 3em;
+            padding: 0 20px;
+            display: none;
+            transition: 100ms all ease-in;
+            opacity: .4;
+            cursor: pointer;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .block-navigator:hover,.block-navigator:focus{
+            opacity: .8;
+        }
+        .block-next{
+            right: -60px;
+        }
+        .block-back{
+            left: -60px;
         }
         .block-slider__items {
             margin: -0.5em;
@@ -67,6 +92,9 @@
             .block-slider__item {
                 width: 14.2857142857%;
             }
+            .block-navigator{
+                display: block;
+            }
         }
         .block-slider__image {
             padding: 0 0.5em;
@@ -84,103 +112,155 @@
         <p>Reduce the width of the viewport to see the # of visible items reduce!</p>
     </div>
     <div class="site-wrap">
-        <div id="block-slider">
-            <div class="block-slider js-block-slider__wrap">
-                <div class="block-slider__items js-block-slider__items">
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-1
+        <div id="block-slider" class="block-slider">
+            <span class="block-back block-navigator">&lsaquo;</span>
+            <span class="block-next block-navigator">&rsaquo;</span>
+            <div class="block-area">
+                <div class="block-slider js-block-slider__wrap">
+                    <div class="block-slider__items js-block-slider__items">
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-1
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-2
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-2
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-3
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-3
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-4
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-4
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-5
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-5
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-6
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-6
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-7
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-7
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-8
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-8
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-9
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-9
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-10
+    <!--                     <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-10
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-11
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-11
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-12
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-12
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-13
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-13
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-14
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-14
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-15
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-15
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-16
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-16
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-17
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-17
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-slider__item">
-                        <div class="block-slider__image">
-                            Image-18
-                        </div>
+                        <div class="block-slider__item">
+                            <div class="block-slider__image">
+                                Image-18
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis animi placeat, tempore culpa id autem iure quod consequuntur. Nobis animi a necessitatibus cum repellat eligendi placeat aperiam quaerat nemo sequi.</p>
+
     <script src="../dist/block-slider.min.js"></script>
     <script>
         BlockSlider(document.getElementById('block-slider'), {

@@ -2,7 +2,8 @@ function BlockSlider(collection, {
     sInterval = 2000,
     sTransition = 400,
     wrapClass = '.js-block-slider__wrap',
-    itemsClass = '.js-block-slider__items'
+    itemsClass = '.js-block-slider__items',
+    stopAfterNavigate = true // when true, autoslide stops after navigation
 }) {
     'use strict';
     const safariFixDelay = /constructor/i.test(window.HTMLElement) ? 500 : 0,
@@ -10,7 +11,7 @@ function BlockSlider(collection, {
         lgStart = 'Block Slider: ';
     let resizeTimer;
     let mouseOver = false;
-    let pauseOnce = false; //when true, auto slides will be skipped one
+    let stopForever = false; 
 
     function testTiming(timing) {
         if (typeof timing !== 'number') {
@@ -65,7 +66,8 @@ function BlockSlider(collection, {
             return false;
         }
         duration = calcTransiton();
-        slider.setAttribute('style', 'overflow: hidden; opacity: 0');
+        slider.setAttribute('style', 'opacity: 0');
+        slider.querySelector('.block-area').setAttribute('style', 'overflow: hidden;');
         wrap.setAttribute('style', `-webkit-transition: -webkit-transform ${duration}s;transition: transform ${duration}s;`);
         sliders.push({
             slider,
@@ -85,19 +87,23 @@ function BlockSlider(collection, {
     }
 
     const hasReachedEnd = s => -(s.slidePosition + 1) > s.wrapWidth - s.sliderWidth;
+    const hasReachedStart = s => s.slidePosition > 1;
 
-    function slide() {
+    function slide(direction) {
         if(mouseOver) return;
         sliders.forEach(s => {
+            if(direction == 'next'){
+                s.slidePosition -= s.itemWidth;
+            }else{
+                s.slidePosition += s.itemWidth;
+            }
+            if (hasReachedEnd(s)) s.slidePosition = 0; // return to start
+            if (hasReachedStart(s)) s.slidePosition = -(s.wrapWidth - s.sliderWidth) + 15; // return to end
             const wrap = s.wrap,
                 str = `translate3d(${s.slidePosition}px, 0, 0)`;
             wrap.style.webkitTransform = str;
             wrap.style.msTransform = str;
             wrap.style.transform = str;
-            s.slidePosition -= s.itemWidth;
-            if (hasReachedEnd(s)) {
-                s.slidePosition = 0;
-            }
         });
     }
 
@@ -140,7 +146,7 @@ function BlockSlider(collection, {
                 setTimeout(() => {
                     // fade slider back in.
                     s.slider.style.opacity = 1;
-                    slide();
+                    slide('next');
                 }, safariFixDelay);
             }, safariFixDelay);
         });
@@ -154,74 +160,72 @@ function BlockSlider(collection, {
         resizeTimer = setTimeout(calcAndSetWidths, 250);
     });
 
-    collection.addEventListener('mouseover', () => {
-        //pause slider on mouseover
+    collection.querySelector('.block-area').addEventListener('mouseover', () => {
+        // pause slider on mouseover
         mouseOver = true;
     });
 
     collection.addEventListener('mouseout', () => {
-        //start slider on mouseout
+        // start slider on mouseout
         mouseOver = false;
     });
 
+    collection.querySelector('.block-back').addEventListener('click',function(e){
+        slide('back',sliders);
+        stopForever = true;
+    });
+    collection.querySelector('.block-next').addEventListener('click',function(e){
+        slide('next',sliders);
+        stopForever = true;
+    });
+
     //touch events
-    document.addEventListener('touchstart', handleTouchStart, false);        
-    document.addEventListener('touchmove', handleTouchMove, false);
+    collection.addEventListener('touchstart', handleTouchStart, false);        
+    collection.addEventListener('touchmove', handleTouchMove, false);
+    collection.addEventListener('touchcancel', handleTouchStop, false);
+    collection.addEventListener('touchend', handleTouchStop, false);
 
-    let xDown = null;                                                        
-    let yDown = null;                                                        
+    let xDown = null;
 
-    function handleTouchStart(evt) {                                         
-        //save start position of swipe
-        xDown = evt.touches[0].clientX;                                      
-        yDown = evt.touches[0].clientY;                                      
+    function handleTouchStart(evt) {   
+        // evt.preventDefault(); // disable scrolling                                
+        // save start position of swipe
+        xDown = evt.touches[0].clientX; 
     }                                        
-
     function handleTouchMove(evt) {
-        //when touch is released
-        if ( ! xDown || ! yDown ) {
+        evt.preventDefault(); // disable scrolling
+        // when touch is released
+        if ( ! xDown ) {
             return;
         }
 
-        let xUp = evt.touches[0].clientX;                                    
-        let yUp = evt.touches[0].clientY;
-
-        let xDiff = xDown - xUp;
-        let yDiff = yDown - yUp;
+        let xUp = evt.touches[0].clientX,                                    
+            xDiff = (xDown - xUp);
 
         //calc direction of swipe
-        if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
-            if ( xDiff > 0 ) {
-                //swipe left
-                pauseOnce = true;
-                slide(sliders);
-            } else {
-                //swipe right
-            }                       
+        if ( xDiff > 0 ) {
+            // swipe left
+            stopForever = true;
+            slide('next',sliders);
         } else {
-            if ( yDiff > 0 ) {
-                //swipe up
-            } else { 
-                //swipe down
-            }                                                                 
+            // swipe right
+            stopForever = true;
+            slide('back',sliders);
         }
         xDown = null;
-        yDown = null;                                             
     }
     // http://stackoverflow.com/a/23230280/5490735
 
+    function handleTouchStop(evt) {}
+
     setInterval(() => {
-        if(!pauseOnce){
-            pauseOnce = true;
-            if (requestAnimationFrame) {
-                requestAnimationFrame(() => {
-                    slide(sliders);
-                });            
-            } else {
-                slide(sliders); 
-            }
-        }else{
-            pauseOnce = false;
+        if(stopForever && stopAfterNavigate) return;
+        if (requestAnimationFrame) {
+            requestAnimationFrame(() => {
+                slide('next',sliders);
+            });            
+        } else {
+            slide('next',sliders);
         }
     }, sInterval);
 
