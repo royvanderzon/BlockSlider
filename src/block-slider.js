@@ -182,13 +182,10 @@ function BlockSlider(collection, {
     //touch events
     collection.addEventListener('touchstart', handleTouchStart, false);        
     collection.addEventListener('touchmove', handleTouchMove, false);
-    collection.addEventListener('touchcancel', handleTouchStop, false);
-    collection.addEventListener('touchend', handleTouchStop, false);
 
     let xDown = null;
 
     function handleTouchStart(evt) {   
-        // evt.preventDefault(); // disable scrolling                                
         // save start position of swipe
         xDown = evt.touches[0].clientX; 
     }                                        
@@ -215,8 +212,6 @@ function BlockSlider(collection, {
         xDown = null;
     }
     // http://stackoverflow.com/a/23230280/5490735
-
-    function handleTouchStop(evt) {}
 
     setInterval(() => {
         if(stopForever && stopAfterNavigate) return;
