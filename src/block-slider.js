@@ -10,6 +10,7 @@ function BlockSlider(collection, {
         lgStart = 'Block Slider: ';
     let resizeTimer;
     let mouseOver = false;
+    let pauseOnce = false; //when true, auto slides will be skipped one
 
     function testTiming(timing) {
         if (typeof timing !== 'number') {
@@ -163,16 +164,67 @@ function BlockSlider(collection, {
         mouseOver = false;
     });
 
+    //touch events
+    document.addEventListener('touchstart', handleTouchStart, false);        
+    document.addEventListener('touchmove', handleTouchMove, false);
+
+    let xDown = null;                                                        
+    let yDown = null;                                                        
+
+    function handleTouchStart(evt) {                                         
+        //save start position of swipe
+        xDown = evt.touches[0].clientX;                                      
+        yDown = evt.touches[0].clientY;                                      
+    }                                        
+
+    function handleTouchMove(evt) {
+        //when touch is released
+        if ( ! xDown || ! yDown ) {
+            return;
+        }
+
+        let xUp = evt.touches[0].clientX;                                    
+        let yUp = evt.touches[0].clientY;
+
+        let xDiff = xDown - xUp;
+        let yDiff = yDown - yUp;
+
+        //calc direction of swipe
+        if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
+            if ( xDiff > 0 ) {
+                //swipe left
+            } else {
+                //swipe right
+                pauseOnce = true;
+                slide(sliders);
+            }                       
+        } else {
+            if ( yDiff > 0 ) {
+                //swipe up
+            } else { 
+                //swipe down
+            }                                                                 
+        }
+        xDown = null;
+        yDown = null;                                             
+    }
+    // http://stackoverflow.com/a/23230280/5490735
 
     setInterval(() => {
-        if (requestAnimationFrame) {
-            requestAnimationFrame(() => {
-                slide(sliders);
-            });            
-        } else {
-            slide(sliders); 
+        if(!pauseOnce){
+            pauseOnce = true;
+            if (requestAnimationFrame) {
+                requestAnimationFrame(() => {
+                    slide(sliders);
+                });            
+            } else {
+                slide(sliders); 
+            }
+        }else{
+            pauseOnce = false;
         }
     }, sInterval);
+
 }
 
 // if jQuery is present, create a plugin.
