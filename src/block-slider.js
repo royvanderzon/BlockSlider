@@ -193,10 +193,10 @@ function BlockSlider(collection, {
         if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
             if ( xDiff > 0 ) {
                 //swipe left
-            } else {
-                //swipe right
                 pauseOnce = true;
                 slide(sliders);
+            } else {
+                //swipe right
             }                       
         } else {
             if ( yDiff > 0 ) {
